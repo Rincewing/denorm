@@ -1,0 +1,23 @@
+Name
+	Denorm - unnormify your website.
+
+Synopsis
+	perl denorm.pl [-i <interval>] <targetURL.com> <wordfile.txt> [<suffix.php>]
+
+Description
+	Denorm requests each word in wordfile.txt as an extension from the target website. This should expose concealed functionality not accessible under normal circumstances.
+
+	For example, 'echo "banana\npancake" >wordfile.txt; perl denorm.pl google.com wordfile.txt .php would send requests to google.com/banana.php and google.com/pancake.php.
+
+	Do not use this tool on websites which you do not own and/or have express permission to test. This is a brute forcing tool and may trigger WAFs when used.
+
+Options
+	-i <interval>
+		sets the interval between requests to <interval>. The default is 0.5 seconds, and intervals less than 0.1 seconds are set to 0.1 seconds.
+	<targetURL.com>
+		sets the website to be investigated. The request will be of the form "www.targetURL.com/word".
+	<wordfile.txt>
+		the newline-separated series of words or phrases. When running, the script will remove any whitespace between newlines before querying.
+	[<suffix.php>]
+		the suffix of the webrequest. If this is set, the request will be of the form "www.targetURL.com/word.suffix"
+	
