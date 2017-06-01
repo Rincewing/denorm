@@ -1,2 +1,2 @@
 # denorm
-An automated scanner for pages that you may not be intended to access.
+An automated scanner for pages that may not be apparent at first glance.
