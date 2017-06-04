@@ -19,4 +19,4 @@ Options
 	<wordfile.txt>
 		the newline-separated series of words or phrases. When running, the script will remove any whitespace between newlines before querying.
 	[<suffix.php>]
-		the suffix of the webrequest. If this is set, the request will be of the form "www.targetURL.com/word.suffix"
+		the suffix of the webrequest, e.g. ".php". If this is set, the request will be of the form "www.targetURL.com/wordsuffix"
