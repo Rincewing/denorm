@@ -1,5 +1,7 @@
 #!/usr/bin/perl -w
 
+use Time::HiRes;
+
 sub main {
     my $interval = 0.5;
     my $i = 0;
@@ -15,6 +17,9 @@ sub main {
             badargs();
         }
         $interval = $ARGV[$i];
+	if ($interval < 0.1) {
+		$interval = 0.1;
+	}
         chomp $interval;
         $i++;
     }
@@ -29,10 +34,10 @@ sub main {
         $suffix =~ s/[ \t]+//g;
         $i++;
     }
-    is_not_default($targetURL, $wordfile, $interval, $suffix);
+    not_404($targetURL, $wordfile, $interval, $suffix);
 }
 
-sub is_not_default {
+sub not_404 {
     my $targURL = shift;
     my $wordf = shift;
     my $interval = shift;
@@ -43,7 +48,7 @@ sub is_not_default {
         $word =~ s/[ \t]+//g;
         $url = "$targURL/$word$suffix";
         system("wget -o denormwgetlog.txt $url >htmldenorm.txt");   # unusual names so they're unlikely to overwrite files
-        open(my $fh, '<:encoding(UTF-8)', "denormwgetlog.txt") or print("failed to open a log\n") and next;
+        open(my $fh, '<:encoding(UTF-8)', "denormwgetlog.txt") or print("failed to open the log for $url\n") and next;
         while ($line = <$fh>) {
             if ($line =~ /200 OK/i) {
                 print "found something at $url\n";
@@ -51,6 +56,7 @@ sub is_not_default {
                 last;
             }
         }
+	system("sleep $interval");
     }
 }
 
